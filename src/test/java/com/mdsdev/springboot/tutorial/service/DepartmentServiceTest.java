@@ -34,7 +34,7 @@ class DepartmentServiceTest {
                 .departmentCode("IT-06")
                 .build();
 
-        when(departmentRepository.findByDepartmentName("IT")).thenReturn(department);
+        when(departmentRepository.findByDepartmentNameIgnoreCase("IT")).thenReturn(department);
     }
 
     @Test
