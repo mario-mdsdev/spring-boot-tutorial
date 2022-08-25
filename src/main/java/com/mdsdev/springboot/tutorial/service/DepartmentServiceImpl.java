@@ -50,7 +50,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department updateDepartment(Long departmentId, Department department) {
         final Department depDB = departmentRepository.findById(departmentId).get();
-        boolean hasChanges = false;
+        var hasChanges = false;
 
         if (Objects.nonNull(department.getDepartmentName())
                 && StringUtils.isNotBlank(department.getDepartmentName())) {

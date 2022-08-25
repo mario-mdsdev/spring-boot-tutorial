@@ -39,7 +39,7 @@ class DepartmentServiceTest {
 
     @Test
     @DisplayName("Get the department data based on a valid department name")
-    public void whenValidDepartmentName_thenDepartmentShouldBeFound() {
+    void whenValidDepartmentName_thenDepartmentShouldBeFound() {
         final String departmentName = "IT";
         final Department departmentFound = departmentService.fetchDepartmentByName(departmentName);
 
