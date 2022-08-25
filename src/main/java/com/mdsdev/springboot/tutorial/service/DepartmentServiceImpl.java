@@ -1,19 +1,22 @@
 package com.mdsdev.springboot.tutorial.service;
 
 import com.mdsdev.springboot.tutorial.entity.Department;
+import com.mdsdev.springboot.tutorial.error.DepartmentNotFoundException;
 import com.mdsdev.springboot.tutorial.repository.DepartmentRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DepartmentServiceImpl implements DepartmentService {
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public void deleteDepartmentById(Long departmentId) {
@@ -21,8 +24,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(Long departmentId) {
-        return departmentRepository.findById(departmentId).get();
+    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+        final Optional<Department> department = departmentRepository.findById(departmentId);
+        if (!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department not available.");
+        }
+        return department.get();
     }
 
     @Override
@@ -45,17 +52,20 @@ public class DepartmentServiceImpl implements DepartmentService {
         final Department depDB = departmentRepository.findById(departmentId).get();
         boolean hasChanges = false;
 
-        if (Objects.nonNull(department.getDepartmentName()) && StringUtils.isNotBlank(department.getDepartmentName())) {
+        if (Objects.nonNull(department.getDepartmentName())
+                && StringUtils.isNotBlank(department.getDepartmentName())) {
             depDB.setDepartmentName(department.getDepartmentName());
             hasChanges = true;
         }
 
-        if (Objects.nonNull(department.getDepartmentAddress()) && StringUtils.isNotBlank(department.getDepartmentAddress())) {
+        if (Objects.nonNull(department.getDepartmentAddress())
+                && StringUtils.isNotBlank(department.getDepartmentAddress())) {
             depDB.setDepartmentAddress(department.getDepartmentAddress());
             hasChanges = true;
         }
 
-        if (Objects.nonNull(department.getDepartmentCode()) && StringUtils.isNotBlank(department.getDepartmentCode())) {
+        if (Objects.nonNull(department.getDepartmentCode())
+                && StringUtils.isNotBlank(department.getDepartmentCode())) {
             depDB.setDepartmentCode(department.getDepartmentCode());
             hasChanges = true;
         }
