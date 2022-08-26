@@ -1,6 +1,6 @@
 package com.mdsdev.springboot.tutorial.controller;
 
-import com.mdsdev.springboot.tutorial.entity.Department;
+import com.mdsdev.springboot.tutorial.dto.DepartmentDTO;
 import com.mdsdev.springboot.tutorial.error.DepartmentNotFoundException;
 import com.mdsdev.springboot.tutorial.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
@@ -23,29 +23,31 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}")
-    public Department fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
+    public DepartmentDTO fetchDepartmentById(@PathVariable("id") Long departmentId)
+            throws DepartmentNotFoundException {
         return departmentService.fetchDepartmentById(departmentId);
     }
 
     @GetMapping("/departments/name/{name}")
-    public Department fetchDepartmentByName(@PathVariable("name") String departmentName) {
+    public DepartmentDTO fetchDepartmentByName(@PathVariable("name") String departmentName) {
         return departmentService.fetchDepartmentByName(departmentName);
     }
 
     @GetMapping("/departments")
-    public List<Department> fetchDepartmentList() {
+    public List<DepartmentDTO> fetchDepartmentList() {
         return departmentService.fetchDepartmentList();
     }
 
     @PostMapping("/departments")
-    public Department saveDepartment(@Valid @RequestBody Department department) {
-        return departmentService.saveDepartment(department);
+    public DepartmentDTO saveDepartment(@Valid @RequestBody DepartmentDTO departmentDTO) {
+        return departmentService.saveDepartment(departmentDTO);
     }
 
     @PutMapping("/departments/{id}")
-    public Department updateDepartment(@PathVariable("id") Long departmentId,
-                                       @Valid @RequestBody Department department) {
-        return departmentService.updateDepartment(departmentId, department);
+    public DepartmentDTO updateDepartment(@PathVariable("id") Long departmentId,
+                                       @Valid @RequestBody DepartmentDTO departmentDTO)
+            throws DepartmentNotFoundException {
+        return departmentService.updateDepartment(departmentId, departmentDTO);
     }
 
 }

@@ -3,7 +3,13 @@ server:
 
 spring:
   profiles:
-    active: prod
+    active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
 
 ---
 
@@ -12,11 +18,13 @@ spring:
     activate:
       on-profile: dev
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mdsappdb-dev
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    hibernate:
+      ddl-auto: update
     show-sql: true
 
 ---
@@ -26,12 +34,13 @@ spring:
     activate:
       on-profile: qa
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mdsappdb-qa
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 ---
 
@@ -40,9 +49,10 @@ spring:
     activate:
       on-profile: prod
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mdsappdb
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql: true
+    hibernate:
+      ddl-auto: update

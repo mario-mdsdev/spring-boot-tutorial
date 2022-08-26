@@ -1,22 +1,26 @@
 package com.mdsdev.springboot.tutorial.service;
 
+import com.mdsdev.springboot.tutorial.dto.DepartmentDTO;
 import com.mdsdev.springboot.tutorial.entity.Department;
 import com.mdsdev.springboot.tutorial.error.DepartmentNotFoundException;
 import com.mdsdev.springboot.tutorial.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+    private final ModelMapper mapper;
 
     @Override
     public void deleteDepartmentById(Long departmentId) {
@@ -24,55 +28,80 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+    public DepartmentDTO fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
         final Optional<Department> department = departmentRepository.findById(departmentId);
-        if (!department.isPresent()) {
+        if (department.isEmpty()) {
             throw new DepartmentNotFoundException("Department not available.");
         }
-        return department.get();
+        return mapper.map(department.get(), DepartmentDTO.class);
     }
 
     @Override
-    public Department fetchDepartmentByName(String departmentName) {
-        return departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+    public DepartmentDTO fetchDepartmentByName(String departmentName) {
+        final var department = departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+        return mapper.map(department, DepartmentDTO.class);
     }
 
     @Override
-    public List<Department> fetchDepartmentList() {
-        return departmentRepository.findAll();
+    public List<DepartmentDTO> fetchDepartmentList() {
+        final List<Department> departments = departmentRepository.findAll();
+        return departments.stream()
+                .map(department -> mapper.map(department, DepartmentDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Department saveDepartment(Department department) {
-        return departmentRepository.save(department);
+    public DepartmentDTO saveDepartment(DepartmentDTO departmentDTO) {
+        final var department = Department.builder()
+                .departmentName(departmentDTO.getDepartmentName())
+                .departmentAddress(departmentDTO.getDepartmentAddress())
+                .departmentCode(departmentDTO.getDepartmentCode())
+                .build();
+        departmentRepository.save(department);
+        return mapper.map(department, DepartmentDTO.class);
     }
 
     @Override
-    public Department updateDepartment(Long departmentId, Department department) {
-        final Department depDB = departmentRepository.findById(departmentId).get();
+    public DepartmentDTO updateDepartment(Long departmentId,
+                                          DepartmentDTO departmentDTO) throws DepartmentNotFoundException {
+        if (departmentId == null) throw new DepartmentNotFoundException("Invalid department data.");
+
+        final Department depDB = departmentRepository.findById(departmentId).orElseThrow();
         var hasChanges = false;
 
-        if (Objects.nonNull(department.getDepartmentName())
-                && StringUtils.isNotBlank(department.getDepartmentName())) {
-            depDB.setDepartmentName(department.getDepartmentName());
+        final String departmentName = departmentDTO.getDepartmentName();
+        if (Objects.nonNull(departmentName)
+                && StringUtils.isNotBlank(departmentName)
+                && !departmentName.equalsIgnoreCase(depDB.getDepartmentName()))
+        {
+            depDB.setDepartmentName(departmentName);
             hasChanges = true;
         }
 
-        if (Objects.nonNull(department.getDepartmentAddress())
-                && StringUtils.isNotBlank(department.getDepartmentAddress())) {
-            depDB.setDepartmentAddress(department.getDepartmentAddress());
+        final String departmentAddress = departmentDTO.getDepartmentAddress();
+        if (Objects.nonNull(departmentAddress)
+                && StringUtils.isNotBlank(departmentAddress)
+                && !departmentAddress.equalsIgnoreCase(depDB.getDepartmentAddress()))
+        {
+            depDB.setDepartmentAddress(departmentAddress);
             hasChanges = true;
         }
 
-        if (Objects.nonNull(department.getDepartmentCode())
-                && StringUtils.isNotBlank(department.getDepartmentCode())) {
-            depDB.setDepartmentCode(department.getDepartmentCode());
+        final String departmentCode = departmentDTO.getDepartmentCode();
+        if (Objects.nonNull(departmentCode)
+                && StringUtils.isNotBlank(departmentCode)
+                && !departmentCode.equalsIgnoreCase(depDB.getDepartmentCode()))
+        {
+            depDB.setDepartmentCode(departmentCode);
             hasChanges = true;
         }
 
-        if (hasChanges) departmentRepository.save(depDB);
-
-        return depDB;
+        if (hasChanges) {
+            departmentRepository.save(depDB);
+            return mapper.map(depDB, DepartmentDTO.class);
+        } else {
+            return departmentDTO;
+        }
     }
 
 }

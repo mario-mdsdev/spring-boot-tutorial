@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -35,10 +35,10 @@ class DepartmentRepositoryTest {
     @Test
     @DisplayName("Get department data by looking for id")
     void whenFindById_thenReturnDepartment() {
-        final Department department = departmentRepository.findById(1l).get();
+        final Optional<Department> department = departmentRepository.findById(1L);
 
-        assertThat(department, is(notNullValue()));
-        assertThat(department.getDepartmentName(), is(equalTo("Mechanical Engineering")));
+        assertThat(department.isPresent(), is(true));
+        assertThat(department.get().getDepartmentName(), is(equalTo("Mechanical Engineering")));
     }
 
 }
