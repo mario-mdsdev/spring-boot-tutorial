@@ -1,7 +1,7 @@
-package br.com.mdsdev.springboot.tutorial.service;
+package br.com.mdsdev.springboot.service;
 
-import br.com.mdsdev.springboot.tutorial.dto.DepartmentDTO;
-import br.com.mdsdev.springboot.tutorial.error.DepartmentNotFoundException;
+import br.com.mdsdev.springboot.dto.DepartmentDTO;
+import br.com.mdsdev.springboot.error.DepartmentNotFoundException;
 
 import java.util.List;
 

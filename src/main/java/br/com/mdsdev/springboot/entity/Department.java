@@ -1,21 +1,28 @@
-package br.com.mdsdev.springboot.tutorial.dto;
+package br.com.mdsdev.springboot.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
-public class DepartmentDTO {
+@Entity
+public class Department {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long departmentId;
 
-    @NotBlank(message = "Department name can't be null.")
+    @NotBlank(message = "Please, add department name.")
     private String departmentName;
 
     private String departmentAddress;

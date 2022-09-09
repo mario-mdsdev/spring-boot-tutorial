@@ -1,8 +1,8 @@
-package br.com.mdsdev.springboot.tutorial.service;
+package br.com.mdsdev.springboot.service;
 
-import br.com.mdsdev.springboot.tutorial.dto.DepartmentDTO;
-import br.com.mdsdev.springboot.tutorial.entity.Department;
-import br.com.mdsdev.springboot.tutorial.repository.DepartmentRepository;
+import br.com.mdsdev.springboot.dto.DepartmentDTO;
+import br.com.mdsdev.springboot.entity.Department;
+import br.com.mdsdev.springboot.repository.DepartmentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

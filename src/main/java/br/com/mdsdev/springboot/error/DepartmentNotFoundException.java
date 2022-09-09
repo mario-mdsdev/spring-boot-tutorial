@@ -1,4 +1,4 @@
-package br.com.mdsdev.springboot.tutorial.error;
+package br.com.mdsdev.springboot.error;
 
 public class DepartmentNotFoundException extends Exception {
 

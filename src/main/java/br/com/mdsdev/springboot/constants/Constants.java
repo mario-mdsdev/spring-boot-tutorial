@@ -1,4 +1,4 @@
-package br.com.mdsdev.springboot.tutorial.constants;
+package br.com.mdsdev.springboot.constants;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

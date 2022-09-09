@@ -1,4 +1,4 @@
-package br.com.mdsdev.springboot.tutorial;
+package br.com.mdsdev.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

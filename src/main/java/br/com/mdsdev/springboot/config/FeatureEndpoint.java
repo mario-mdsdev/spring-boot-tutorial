@@ -1,4 +1,4 @@
-package br.com.mdsdev.springboot.tutorial.config;
+package br.com.mdsdev.springboot.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,9 +1,9 @@
-package br.com.mdsdev.springboot.tutorial.service;
+package br.com.mdsdev.springboot.service;
 
-import br.com.mdsdev.springboot.tutorial.dto.DepartmentDTO;
-import br.com.mdsdev.springboot.tutorial.entity.Department;
-import br.com.mdsdev.springboot.tutorial.error.DepartmentNotFoundException;
-import br.com.mdsdev.springboot.tutorial.repository.DepartmentRepository;
+import br.com.mdsdev.springboot.entity.Department;
+import br.com.mdsdev.springboot.dto.DepartmentDTO;
+import br.com.mdsdev.springboot.error.DepartmentNotFoundException;
+import br.com.mdsdev.springboot.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;

@@ -1,6 +1,6 @@
-package br.com.mdsdev.springboot.tutorial.repository;
+package br.com.mdsdev.springboot.repository;
 
-import br.com.mdsdev.springboot.tutorial.entity.Department;
+import br.com.mdsdev.springboot.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

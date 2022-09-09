@@ -1,8 +1,8 @@
-package br.com.mdsdev.springboot.tutorial.controller;
+package br.com.mdsdev.springboot.controller;
 
-import br.com.mdsdev.springboot.tutorial.dto.DepartmentDTO;
-import br.com.mdsdev.springboot.tutorial.error.DepartmentNotFoundException;
-import br.com.mdsdev.springboot.tutorial.service.DepartmentService;
+import br.com.mdsdev.springboot.service.DepartmentService;
+import br.com.mdsdev.springboot.dto.DepartmentDTO;
+import br.com.mdsdev.springboot.error.DepartmentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

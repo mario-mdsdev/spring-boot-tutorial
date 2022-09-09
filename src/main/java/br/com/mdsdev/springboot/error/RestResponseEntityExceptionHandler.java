@@ -1,6 +1,6 @@
-package br.com.mdsdev.springboot.tutorial.error;
+package br.com.mdsdev.springboot.error;
 
-import br.com.mdsdev.springboot.tutorial.entity.ErrorMessage;
+import br.com.mdsdev.springboot.entity.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,7 +15,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(DepartmentNotFoundException.class)
     public ResponseEntity<ErrorMessage> departmentNotFoundException(DepartmentNotFoundException exception,
-                                                                   WebRequest request) {
+                                                                    WebRequest request) {
         final var errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }

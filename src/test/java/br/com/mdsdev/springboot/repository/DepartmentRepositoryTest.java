@@ -1,6 +1,6 @@
-package br.com.mdsdev.springboot.tutorial.repository;
+package br.com.mdsdev.springboot.repository;
 
-import br.com.mdsdev.springboot.tutorial.entity.Department;
+import br.com.mdsdev.springboot.entity.Department;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

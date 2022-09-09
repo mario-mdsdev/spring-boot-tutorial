@@ -1,4 +1,4 @@
-package br.com.mdsdev.springboot.tutorial.entity;
+package br.com.mdsdev.springboot.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
